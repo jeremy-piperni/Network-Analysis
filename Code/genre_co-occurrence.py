@@ -26,5 +26,5 @@ print("# of Nodes: " + str(G.number_of_nodes()))
 print("# of Edges: " + str(G.number_of_edges()))
 
 pos = nx.spring_layout(G, seed=9)
-nx.draw(G, pos, node_size=20, width=0.5, node_color='firebrick')
+nx.draw(G, pos, node_size=20, width=0.5, node_color='firebrick', alpha=0.8)
 plt.show()
