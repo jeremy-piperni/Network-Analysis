@@ -18,14 +18,14 @@ unique_genres = set(df["Genre"].astype(str).fillna("").str.split(", ").explode()
 cleaned_genres = {word.lower().removeprefix("null") for word in unique_genres}
 sorted_genres = sorted(cleaned_genres)
 
-print("# of Genres: " + str(len(sorted_genres)))
+#print("# of Genres: " + str(len(sorted_genres)))
 
 # Apply the genre mapping
 new_genres = set()
 for word in sorted_genres:
     new_genres.add(genre_mapping.map_genre(word))
 
-print("# of Genres after Mapping: " + str(len(new_genres)))
+#print("# of Genres after Mapping: " + str(len(new_genres)))
 
 # Function to return the mapped genres in the dataframe
 def map_words(text):
@@ -34,6 +34,7 @@ def map_words(text):
     words = text.split(", ")
     words = [word.lower().removeprefix("null") for word in words]
     mapped_words = [genre_mapping.map_genre(word) for word in words]
+    mapped_words = list(dict.fromkeys(mapped_words))
     return ', '.join(mapped_words)
 
 # Function to format the author names properly
