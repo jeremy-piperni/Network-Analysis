@@ -4,6 +4,26 @@ import os
 import genre_mapping
 import re
 
+author_mapping = {
+    "j. maas sarah": "sarah j. maas",
+    "saadia faruqi": "faruqi saadia",
+    "von ziegesar cecily": "cecily von ziegesar",
+    "rhodes jewell parker": "jewell parker rhodes",
+    "jewel parker rhodes": "jewell parker rhodes",
+    "illus. by kristyna litten gayle e. pitman": "gayle e. pitman",
+    "gayle e. pitman illus. by kristyna litten": "gayle e. pitman",
+    "e. pitman gayle": "gayle e. pitman",
+    "vonnegut jr. kurt": "kurt vonnegut",
+    "jr. kurt vonnegut": "kurt vonnegut",
+    "mariko tamaki illus. by jillian tamaki": "tamaki mariko",
+    "illus. by jillian tamaki mariko tamaki": "tamaki mariko",
+    "block francesca lia": "francesca lia block",
+    "lia block francesca": "francesca lia block",
+    "mcdonough yona zeldis": "yona zeldis mcdonough",
+    "zeldis mcdonough yona": "yona zeldis mcdonough",
+    "illus. by varnette p. honeywood bill cosby": "varnette honeywood",
+    "bill cosby illus. by varnette p. honeywood": "varnette honeywood"
+}
 # Get the dataset
 script_dir = os.path.dirname(os.path.abspath(__file__))
 new_path = os.path.join(script_dir, os.pardir, "Data", "merged_dataset.csv")
@@ -59,6 +79,13 @@ def format_author(author):
     
     return ' '.join(author)
 
+# Function to map certain author names
+def map_author_to_value(x):
+    for key in author_mapping:
+        if x in key:
+            return author_mapping[key]
+    return x
+
 # Function to format descriptions
 def format_description(description):
     description = description.lower().strip()
@@ -71,6 +98,7 @@ df = df.drop(columns=["Genre"])
 
 # Clean the author column
 df["Author"] = df["Author"].astype(str).apply(format_author)
+df["Author"] = df["Author"].apply(map_author_to_value)
 
 # Clean the description column
 df["Description"] = df["Description"].astype(str).apply(format_description)
