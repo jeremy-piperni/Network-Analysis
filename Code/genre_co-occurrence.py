@@ -50,12 +50,14 @@ for node, centrality in top_genre_close:
 partition = community_louvain.best_partition(G)
 
 # Code to analyze which genre is in which community
+'''
 ammount = 0
 for node, community_id in partition.items():
     if community_id == 1:
         ammount += 1
         print(f"{node}: {community_id}")
 print(ammount)
+'''
 
 # Code to draw the louvain community network
 pos = nx.spring_layout(G)
